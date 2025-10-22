@@ -2,7 +2,6 @@ import styled, { css } from "styled-components";
 
 interface ModalProps {
     show: boolean;
-    title: string;
     roomName: string;
     setRoomName: (value: string) => void;
     onCancel: () => void;
@@ -109,13 +108,13 @@ const ConfirmButton = styled.button<{ disabled?: boolean }>`
 `;
 
 
-const RoomCreateModal = ({ show, title, roomName, setRoomName, onCancel, onConfirm }: ModalProps) => {
+const RoomCreateModal = ({ show, roomName, setRoomName, onCancel, onConfirm }: ModalProps) => {
     if (!show) return null; // show=false면 아무것도 렌더링하지 않음
 
     return (
         <ModalLayOut>
             <ContentBox>
-                <Title>{title}</Title>
+                <Title>새 게임 방 만들기</Title>
 
                 <InputGroupBox>
                     <Label>방 이름</Label>

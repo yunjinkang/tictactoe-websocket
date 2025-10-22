@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled, { css } from "styled-components";
 import RoomCreateModal from "../features/home/RoomCreateModal";
+import { useNavigate } from "react-router-dom";
 
 const HomePageLayout = styled.div`
     color: white;
@@ -174,11 +175,20 @@ const JoinBtn = styled.button<RoomStatusProps>`
 const HomePage = () => {
     const [showCreateModal, setShowCreateModal] = useState(false);
     const [roomName, setRoomName] = useState("");
+    const navigate = useNavigate();
 
-    const handleCreateRoom = () => {
+    const handleCreateRoom = async () => {
+        // 실제 서버 요청 API 필요
+        // 테스트용 가짜 roomId 생성
+        const fakeRoomId = Math.random().toString(36).substring(2, 9);
+
         console.log("방 생성:", roomName);
+
         setShowCreateModal(false);
         setRoomName("");
+
+        // 생성된 방으로 이동
+        navigate(`/game/${fakeRoomId}`);
     };
 
     return (
@@ -205,7 +215,9 @@ const HomePage = () => {
                             <PlayerCntBox>1 / 2</PlayerCntBox>
                             <RoomStatusSpan status="waiting">대기 중</RoomStatusSpan>
                         </RoomInfoBox>
-                        <JoinBtn status="waiting">입장하기</JoinBtn>
+                        <JoinBtn
+                            status="waiting"
+                            onClick={() => navigate(`/game/1001`)}>입장하기</JoinBtn>
                     </RoomBodyBox>
                 </RoomCardBox>
 
@@ -255,7 +267,6 @@ const HomePage = () => {
 
             <RoomCreateModal
                 show={showCreateModal}
-                title="새 게임 방 만들기"
                 roomName={roomName}
                 setRoomName={setRoomName}
                 onCancel={() => {
